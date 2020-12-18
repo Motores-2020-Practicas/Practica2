@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //Public
     public GameObject bullet;
     public float coolingDownSecs;
+    public bool autoShoot;
+    public float shootCadenceSecs;
 
+    //Private
     private float timer;
 
     void Start()
     {
         timer = 0;
+        if (autoShoot)
+        {
+            InvokeRepeating("ShootEnemy", 2.0f, shootCadenceSecs);
+        }
     }
 
     // Update is called once per frame
@@ -24,14 +31,25 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    public void Shoot (Vector2 direction)
+    public void Shoot ()
     {
         if (timer <= 0)
         {
             GameObject bullet_;
             bullet_ = Instantiate(bullet, transform.position, Quaternion.identity);
-            bullet_.GetComponent<Bullet>().SetDirection(direction);
+            bullet_.GetComponent<Bullet>().SetDirection(transform.up);
             timer = coolingDownSecs;
         }
+    }
+
+    public void ShootEnemy() {
+        GameObject bullet_;
+        bullet_ = Instantiate(bullet, transform.position, Quaternion.identity);
+        bullet_.GetComponent<Bullet>().SetDirection(transform.up);
+    }
+
+    private void OnDestroy()
+    {
+        CancelInvoke();
     }
 }
