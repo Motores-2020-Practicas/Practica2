@@ -5,11 +5,13 @@ using UnityEngine;
 public class Damageable : MonoBehaviour
 {
     int currentDamage;
+    public int points;
     public int maxDamage;
 
     private Vector2 initPos;
     private Quaternion initRot;
     private Transform tr;
+    private static GameManager instance;
 
     private void Start()
     {
@@ -17,6 +19,7 @@ public class Damageable : MonoBehaviour
         tr = this.gameObject.GetComponent<Transform>();
         initPos = tr.position;
         initRot = tr.rotation;
+        instance = GameManager.getInstance();
     }
 
     public void MakeDamage()
@@ -27,6 +30,7 @@ public class Damageable : MonoBehaviour
             if (this.gameObject.tag == "enemy")
             {
                 Destroy(this.gameObject);
+                instance.EnemyDestroyed(points);
             }
             else if (this.gameObject.tag == "Player") {
                 Reset();
@@ -36,8 +40,15 @@ public class Damageable : MonoBehaviour
 
     private void Reset()
     {
-        tr.position = initPos;
-        tr.rotation = initRot;
-        currentDamage = 0;
+        if (!instance.playerDestroyed())
+        {
+            tr.position = initPos;
+            tr.rotation = initRot;
+            currentDamage = 0;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

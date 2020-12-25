@@ -7,6 +7,7 @@ TagManager:
   - bala
   - enemyBullet
   - enemy
+  - base
   layers:
   - Default
   - TransparentFX
@@ -17,11 +18,11 @@ TagManager:
   - 
   - 
   - WallLayer
-  - PlayerLayer
+  - BaseLayer
   - BulletLayer
   - EnemyLayer
   - EnemyBulletLayer
-  - 
+  - PlayerLayer
   - 
   - 
   - 

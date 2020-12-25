@@ -9,18 +9,10 @@ public class DestroyOnCollision : MonoBehaviour
         Destroy(this.gameObject);
         //Si el objeto con el que colisiona no es el muro entonces es el player o un enemigo
         //En tal caso, hace daño
-        //WallLayer = 8
-        if (collision.gameObject.layer != 8)
+        //WallLayer = 8 / BaseLayer = 9
+        if (collision.gameObject.layer != 8 && collision.gameObject.layer != 9)
         {
             collision.gameObject.GetComponent<Damageable>().MakeDamage();
         }
-
-       //if (collision.gameObject.tag == "Player")
-       //{
-       //    collision.gameObject.GetComponent<Damageable>().MakeDamage();
-       //}
-       //else if (collision.gameObject.tag == "enemy") {
-       //    collision.gameObject.GetComponent<Damageable>().MakeDamage();
-       //}
     }
 }
