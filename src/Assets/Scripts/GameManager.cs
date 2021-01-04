@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
 
         return false;
     }
+
     public void EnemyDestroyed(int destructionPoints)
     {
         score += destructionPoints;
@@ -45,4 +48,9 @@ public class GameManager : MonoBehaviour
     {
         return instance;
     }
+
+    public void ChangeScene(string sceneName) {
+        SceneManager.LoadScene(sceneName);
+    }
+
 }
