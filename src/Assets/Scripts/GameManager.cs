@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public void SetUIManager(UIManager uim)
     {
         ui_manager = uim;
-        ui_manager.Init(3, 4);
+        ui_manager.Init(3, 2);
     }
 
     public bool playerDestroyed()

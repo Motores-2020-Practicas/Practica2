@@ -10,8 +10,6 @@ public class UIManager : MonoBehaviour
     public Text livesText;
 
     private int enemiesLeft;
-    private float x;
-    private float y;
     private GameManager instance;
 
     void Start()
@@ -22,24 +20,13 @@ public class UIManager : MonoBehaviour
 
     public void Init(int numLives, int numEnemies)
     {
-        x = 0.0f;
-        y = 0.0f;
         for (int i = 0; i < numEnemies; i++)
         {
-            Image icon = Instantiate(enemyIconPrefab, new Vector3(x, y, 0), Quaternion.identity);
-            if (i % 2 == 0.0f)
-            {
-                x += enemyIconPrefab.transform.localScale.x;
-            }
-            else
-            {
-                x = 0.0f;
-                y += enemyIconPrefab.transform.localScale.y;
-            }
+            Image icon = Instantiate(enemyIconPrefab);
 
-            icon.transform.SetParent(enemyPanel, true);
+            icon.rectTransform.SetParent(enemyPanel);
         }
-        enemiesLeft = numEnemies;
+        enemiesLeft = numEnemies - 1;
 
         livesText.text = numLives.ToString();
     }
@@ -51,13 +38,13 @@ public class UIManager : MonoBehaviour
 
     public void RemoveEnemy()
     {
-        if (enemiesLeft > 0)
+        if (enemiesLeft >= 0)
         {
             if (enemyPanel != null)
             {
                 enemyPanel.GetChild(enemiesLeft).gameObject.SetActive(false);
-                enemiesLeft--;
             }
+            enemiesLeft--;
         }
     }
 }
