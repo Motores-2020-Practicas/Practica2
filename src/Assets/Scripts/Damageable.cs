@@ -5,7 +5,6 @@ using UnityEngine;
 public class Damageable : MonoBehaviour
 {
     int currentDamage;
-    public int points;
     public int maxDamage;
 
     private Vector2 initPos;
@@ -27,12 +26,13 @@ public class Damageable : MonoBehaviour
         currentDamage++;
         if (currentDamage >= maxDamage)
         {
-            if (this.gameObject.tag == "enemy")
+            if (this.gameObject.GetComponent<Enemy>())
             {
                 Destroy(this.gameObject);
-                instance.EnemyDestroyed(points);
+                this.gameObject.GetComponent<Enemy>().DestroyEnemy();
+
             }
-            else if (this.gameObject.tag == "Player") {
+            else if (this.gameObject.GetComponent<PlayerController>()) {
                 Reset();
             }
         }

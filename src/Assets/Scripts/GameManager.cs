@@ -7,7 +7,9 @@ public class GameManager : MonoBehaviour
 {
     private int lives = 3;
     private int score = 0;
+    private int enemiesInLevel = 0;
     private static GameManager instance;
+    private UIManager ui_manager;
 
     void Awake()
     {
@@ -22,9 +24,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetUIManager(UIManager uim)
+    {
+        ui_manager = uim;
+        ui_manager.Init(3, 4);
+    }
+
     public bool playerDestroyed()
     {
         lives--;
+        ui_manager.UpdateLives(lives);
         if (lives <= 0)
         {
             FinishLevel(false);
@@ -37,6 +46,8 @@ public class GameManager : MonoBehaviour
     public void EnemyDestroyed(int destructionPoints)
     {
         score += destructionPoints;
+        enemiesInLevel--;
+        ui_manager.RemoveEnemy();
     }
 
     public void FinishLevel(bool playerWon)
@@ -53,4 +64,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public void AddEnemy()
+    {
+        enemiesInLevel++;
+    }
 }
