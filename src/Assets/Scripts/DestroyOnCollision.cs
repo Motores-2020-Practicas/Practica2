@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Script asociado a los muros destruibles y a las balas (del jugador y de los enemigos)
 public class DestroyOnCollision : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //En cualquier caso destruye el objeto
         Destroy(this.gameObject);
-        //Si el objeto con el que colisiona no es el muro entonces es el player o un enemigo
-        //En tal caso, hace daño
-        //WallLayer = 8 / BaseLayer = 9
-        if (collision.gameObject.layer != 8 && collision.gameObject.layer != 9)
+
+        //Si el objeto colisionado tiene asociado el componente, entonces aplica el daño
+        if (collision.gameObject.GetComponent<Damageable>())
         {
             collision.gameObject.GetComponent<Damageable>().MakeDamage();
         }

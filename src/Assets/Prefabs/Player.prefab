@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6306706325992285131}
   - component: {fileID: 6306706325992285130}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 6306706326303553275}
   - component: {fileID: 6306706326303553272}
   - component: {fileID: 6306706326303553274}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -155,8 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76136b02cbced9d4783f6e2a994e4420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: 0
-  maxDamage: 1
+  maxDamage: 3
 --- !u!1 &6306706326878463471
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +167,7 @@ GameObject:
   - component: {fileID: 6306706326878463470}
   - component: {fileID: 6306706326878463464}
   - component: {fileID: 6306706326878463465}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Spritesheet_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

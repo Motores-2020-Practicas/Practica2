@@ -5,11 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    //Publicas
+    //Array de las escenas ordenadas
+    public string[] scenesInOrder;
+    //Enemigos en el nivel actual
+    private int enemiesInLevel;
+
+    //Privadas
+    //Numero de vidas del jugador
     private int lives = 3;
-    private int score = 0;
-    private int enemiesInLevel = 0;
+    //Puntuacion del nivel actual del jugador
+    private int levelScore = 0;
+    //Puntuación total del jugador
+    private int totalScore = 0;
+    //Determina la escena actual
+    private int stage = 0;
+    //Singleton del GameManager
     private static GameManager instance;
+    //Script asocaido al  canvas
     private UIManager ui_manager;
+
+    //Para obtener el singleton desde otro script
+    public static GameManager getInstance()
+    {
+        return instance;
+    }
 
     void Awake()
     {
@@ -24,13 +44,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Referencia el UIManager
     public void SetUIManager(UIManager uim)
     {
         ui_manager = uim;
-        ui_manager.Init(3, 2);
+        Debug.Log(enemiesInLevel + "\n");
+        ui_manager.Init(lives, enemiesInLevel);
     }
 
-    public bool playerDestroyed()
+    //Para cambiar a la escena "sceneName"
+    public void ChangeScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    //Devuelve true si el jugador mueres, false en caso contrario
+    public bool PlayerDestroyed()
     {
         lives--;
         ui_manager.UpdateLives(lives);
@@ -43,29 +72,53 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    //Suma puntos del enemigo a la puntuación y elimina al enemigo.
     public void EnemyDestroyed(int destructionPoints)
     {
-        score += destructionPoints;
+        levelScore += destructionPoints;
+        totalScore += destructionPoints;
         enemiesInLevel--;
         ui_manager.RemoveEnemy();
     }
 
-    public void FinishLevel(bool playerWon)
-    {
-        Debug.Log("Lvel finished: " + playerWon);
-    }
-
-    public static GameManager getInstance()
-    {
-        return instance;
-    }
-
-    public void ChangeScene(string sceneName) {
-        SceneManager.LoadScene(sceneName);
-    }
-
+    //Añade un enemigo al contador de enemigos cuando éste es creado
     public void AddEnemy()
     {
         enemiesInLevel++;
+    }
+
+    //Gestiona el final del nivel en caso de ganar o perder
+    public void FinishLevel(bool playerWon)
+    {
+        ui_manager.Score(levelScore, totalScore, stage, playerWon);
+    }
+
+    //Gestiona la información necesaria para pasar al siguiente nivel
+    public void NextLevel()
+    {
+        stage++;
+        if (stage >= scenesInOrder.Length) 
+        {
+            stage = 0;
+        }
+        else 
+        {
+            levelScore = 0;
+            lives = 3;
+            enemiesInLevel = 0;
+            ChangeScene(scenesInOrder[stage]);
+        }
+    }
+
+    //Resetea el juego en caso de perder
+    public void GameOver()
+    {
+        lives = 3;
+        levelScore = 0;
+        enemiesInLevel = 0;
+        stage = 0;
+        levelScore = 0;
+        totalScore = 0;
+        ChangeScene(scenesInOrder[stage]);
     }
 }

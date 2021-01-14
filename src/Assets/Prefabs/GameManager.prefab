@@ -43,3 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e58879d63dbe949a2c4c1d8fb8edad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scenesInOrder:
+  - MainMenu
+  - Level1
+  - Level2
+  enemiesInLevel: 0200000003000000

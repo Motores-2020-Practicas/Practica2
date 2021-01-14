@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class Damageable : MonoBehaviour
 {
+    //Vida actual del GO
     int currentDamage;
+    //Maximo de daño que puede recibir el GO
     public int maxDamage;
 
+    //Vector que guarda la posicion inicial del GO
     private Vector2 initPos;
+    //Quaternion que guarda la rotación inicial del GO
     private Quaternion initRot;
+    //Transform del GO
     private Transform tr;
+    //Singleton del GameManager
     private static GameManager instance;
 
     private void Start()
@@ -21,6 +27,7 @@ public class Damageable : MonoBehaviour
         instance = GameManager.getInstance();
     }
 
+    //Aplica el daño correspondiente al GO asociado a este script
     public void MakeDamage()
     {
         currentDamage++;
@@ -38,9 +45,10 @@ public class Damageable : MonoBehaviour
         }
     }
 
+    //Resetea la posicion del jugador en caso de tener vidas todavía
     private void Reset()
     {
-        if (!instance.playerDestroyed())
+        if (!instance.PlayerDestroyed())
         {
             tr.position = initPos;
             tr.rotation = initRot;
