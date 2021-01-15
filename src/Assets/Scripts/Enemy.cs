@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
     {
         instance = GameManager.getInstance();
         instance.AddEnemy();
-        Debug.Log("ENEMIGO AÑADIDO\n");
     }
 
     public void DestroyEnemy()

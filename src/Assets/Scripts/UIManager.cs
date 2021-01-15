@@ -17,6 +17,8 @@ public class UIManager : MonoBehaviour
         sessionScoreText;   //Muestra la puntuación total obtenida entre todos los niveles superados al ganar o perder
     //Número de enemigos que quedan vivos
     private int enemiesLeft;
+    // Cantidad de segundos a esperar para pasar de nivel
+    private float secondsLeft = 5;
     //Singleton del GameManager
     private GameManager instance;
     
@@ -75,11 +77,25 @@ public class UIManager : MonoBehaviour
 
         if (playing)
         {
-            instance.NextLevel();
+            StartCoroutine(NextLevel());
         }
-        else {
-            gameOverPanel.SetActive(true);
-            instance.GameOver();
+        else
+        {
+            StartCoroutine(GameOver());
         }
+    }
+
+    IEnumerator NextLevel()
+    {
+        yield return new WaitForSeconds(secondsLeft);
+        instance.NextLevel();
+        Time.timeScale = 1;
+    }
+    IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(secondsLeft);
+        infoPanel.SetActive(false);
+        gameOverPanel.SetActive(true);
+        instance.GameOver();
     }
 }

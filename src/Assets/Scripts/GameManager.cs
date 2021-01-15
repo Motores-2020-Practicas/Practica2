@@ -44,11 +44,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        stage = 1;
+    }
+
     //Referencia el UIManager
     public void SetUIManager(UIManager uim)
     {
         ui_manager = uim;
-        Debug.Log(enemiesInLevel + "\n");
         ui_manager.Init(lives, enemiesInLevel);
     }
 
@@ -99,7 +103,9 @@ public class GameManager : MonoBehaviour
         stage++;
         if (stage >= scenesInOrder.Length) 
         {
-            stage = 0;
+            GameOver();
+            ChangeScene(scenesInOrder[stage]);
+            stage = 1;
         }
         else 
         {
@@ -113,12 +119,20 @@ public class GameManager : MonoBehaviour
     //Resetea el juego en caso de perder
     public void GameOver()
     {
+        Time.timeScale = 1;
         lives = 3;
         levelScore = 0;
         enemiesInLevel = 0;
         stage = 0;
         levelScore = 0;
         totalScore = 0;
-        ChangeScene(scenesInOrder[stage]);
+    }
+
+    // Cierra la aplicacion
+    public void Exit()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
+
+        Application.Quit();
     }
 }

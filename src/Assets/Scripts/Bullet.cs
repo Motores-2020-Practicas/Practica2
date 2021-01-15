@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    // Velocidad de la bala
     public float velocityScale;
-
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Translate(transform.up * velocityScale * Time.deltaTime, 0);
-    }
 
     public void SetDirection(Vector2 direction)
     {
         transform.up = direction;
+        this.GetComponent<Rigidbody2D>().velocity = direction * velocityScale;
     }
 }

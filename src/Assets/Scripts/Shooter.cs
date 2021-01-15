@@ -5,12 +5,17 @@ using UnityEngine;
 public class Shooter : MonoBehaviour
 {
     //Public
+    // Prefab de bala
     public GameObject bullet;
+    // Cantidad de segundos a esperar para poder disparar de nuevo
     public float coolingDownSecs;
+    // Indica si se dispara el tanque manual o automaticamente
     public bool autoShoot;
+    // Cadencia de disparo automatico
     public float shootCadenceSecs;
 
     //Private
+    // Contador para poder volver a disparar
     private float timer;
 
     void Start()
@@ -31,6 +36,7 @@ public class Shooter : MonoBehaviour
         }
     }
 
+    // Dispara una bala
     public void Shoot ()
     {
         if (timer <= 0)
@@ -42,6 +48,7 @@ public class Shooter : MonoBehaviour
         }
     }
 
+    // Dispara una bala enemiga
     public void ShootEnemy() {
         GameObject bullet_;
         bullet_ = Instantiate(bullet, transform.position, Quaternion.identity);
