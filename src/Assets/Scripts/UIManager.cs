@@ -5,26 +5,25 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    //Imagen referente a los enemigos que quedan
-    public Image enemyIconPrefab;
-    //Transform referente al panel de enemigos
-    public RectTransform enemyPanel;
+    //Publcias
     
-    public Text
-        livesText,  //Muestra el número de vidas que quedan
-        stageText,  //Muestra el nivel actual en la pantalla de información al ganar o perder
-        levelScoreText, //Muestra la puntuación obtenida en el nivel al ganar o perder
-        sessionScoreText;   //Muestra la puntuación total obtenida entre todos los niveles superados al ganar o perder
-    //Número de enemigos que quedan vivos
-    private int enemiesLeft;
-    // Cantidad de segundos a esperar para pasar de nivel
-    private float secondsLeft = 5;
-    //Singleton del GameManager
-    private GameManager instance;
-    
-    public GameObject
-        infoPanel,  //GO referente al panel de información mostrado al ganar o perder
-        gameOverPanel;  //GO referente al panel de GAME OVER que se muestra al perder
+    public Image enemyIconPrefab;       //Imagen referente a los enemigos que quedan
+    public RectTransform enemyPanel;    //Transform referente al panel de enemigos
+
+    public Text                         //Componentes de texto
+        livesText,                      //Muestra el número de vidas que quedan
+        stageText,                      //Muestra el nivel actual en la pantalla de información al ganar o perder
+        levelScoreText,                 //Muestra la puntuación obtenida en el nivel al ganar o perder
+        sessionScoreText;               //Muestra la puntuación total obtenida entre todos los niveles superados al ganar o perder
+
+    public GameObject                   //GameObjects
+        infoPanel,                      //GO referente al panel de información mostrado al ganar o perder
+        gameOverPanel;                  //GO referente al panel de GAME OVER que se muestra al perder
+
+    //Privadas
+    private int enemiesLeft;            //Número de enemigos que quedan vivos
+    private float waitSeconds = 5;      // Cantidad de segundos a esperar para pasar de nivel
+    private GameManager instance;       //Singleton del GameManager
 
     void Start()
     {
@@ -85,15 +84,17 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //Corrutina para pasar al siguiente nivel esperando "waitSeconds"
     IEnumerator NextLevel()
     {
-        yield return new WaitForSeconds(secondsLeft);
+        yield return new WaitForSeconds(waitSeconds);
         instance.NextLevel();
-        Time.timeScale = 1;
     }
+
+    //Corrutina para mostrar el panel de GameOver esperando "waitSeconds"
     IEnumerator GameOver()
     {
-        yield return new WaitForSeconds(secondsLeft);
+        yield return new WaitForSeconds(waitSeconds);
         infoPanel.SetActive(false);
         gameOverPanel.SetActive(true);
         instance.GameOver();

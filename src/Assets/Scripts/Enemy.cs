@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int points;
-    private static GameManager instance;
+    //Publicas
+    public int points;                      //Puntos que otorga el enemigo al morir
+
+    //Privadas
+    private static GameManager instance;    //Singleton del GameManager
 
     // Start is called before the first frame update
     void Start()
@@ -14,6 +17,7 @@ public class Enemy : MonoBehaviour
         instance.AddEnemy();
     }
 
+    //Elimina al enemigo y suma los puntos al jugador
     public void DestroyEnemy()
     {
         instance.EnemyDestroyed(points);

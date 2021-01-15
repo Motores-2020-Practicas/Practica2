@@ -11,9 +11,16 @@ public class DestroyOnCollision : MonoBehaviour
         Destroy(this.gameObject);
 
         //Si el objeto colisionado tiene asociado el componente, entonces aplica el daño
-        if (collision.gameObject.GetComponent<Damageable>())
+        Damageable dmg = collision.gameObject.GetComponent<Damageable>();
+        if (dmg)
         {
-            collision.gameObject.GetComponent<Damageable>().MakeDamage();
+            dmg.MakeDamage();
+            //Sirve para que el player no se desplace cuando el choca una bala enemiga
+            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (rb)
+            {
+                rb.velocity = new Vector2(0, 0);
+            }
         }
     }
 }

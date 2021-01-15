@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class HeadQuarter : MonoBehaviour
 {
-    //Sprite que aparece cuando el águila es destruido
-    public Sprite destroyedEagle;
-    //Sprite acutal del HeadQuarter
-    private SpriteRenderer currentSprite;
-    //Singleton del GameManager
-    private static GameManager instance;
+    //Publicas
+    public Sprite destroyedEagle;           //Sprite que aparece cuando el águila es destruido
+    
+    //Privadas
+    private SpriteRenderer currentSprite;   //Sprite acutal del HeadQuarter
+    private static GameManager instance;    //Singleton del GameManager
 
     // Start is called before the first frame update
     void Start()

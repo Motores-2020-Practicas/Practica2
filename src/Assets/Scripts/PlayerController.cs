@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    public float velocityScale;
-    private Shooter cannon;
+    //Publicas
+    public float velocityScale; //Velocidad del player
+
+    //Privadas  
+    private Shooter cannon;     //Referencia al componente shooter para poder disparar
 
     void Start()
     {

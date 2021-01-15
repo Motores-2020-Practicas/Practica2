@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Velocidad de la bala
-    public float velocityScale;
+    public float velocityScale; //Velocidad de la bala
 
     public void SetDirection(Vector2 direction)
     {

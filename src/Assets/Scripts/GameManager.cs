@@ -6,24 +6,18 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     //Publicas
-    //Array de las escenas ordenadas
-    public string[] scenesInOrder;
-    //Enemigos en el nivel actual
-    private int enemiesInLevel;
+    public string[] scenesInOrder;          //Array de las escenas ordenadas
 
     //Privadas
-    //Numero de vidas del jugador
-    private int lives = 3;
-    //Puntuacion del nivel actual del jugador
-    private int levelScore = 0;
-    //Puntuación total del jugador
-    private int totalScore = 0;
-    //Determina la escena actual
-    private int stage = 0;
-    //Singleton del GameManager
-    private static GameManager instance;
-    //Script asocaido al  canvas
-    private UIManager ui_manager;
+    private int lives = 3;                  //Numero de vidas del jugador
+    private int levelScore = 0;             //Puntuacion del nivel actual del jugador
+    private int totalScore = 0;             //Puntuación total del jugador
+    private int stage = 1;                  //Determina la escena actual
+    private int enemiesInLevel;             //Enemigos en el nivel actual
+    private static GameManager instance;    //Singleton del GameManager
+    private UIManager ui_manager;           //Script asocaido al  canvas
+    private PlayerController playerC;       //Referencia a PlayerController
+    private GameObject enemies;             //Referencia a los enemigos del nivel
 
     //Para obtener el singleton desde otro script
     public static GameManager getInstance()
@@ -42,11 +36,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-    }
-
-    void Start()
-    {
-        stage = 1;
     }
 
     //Referencia el UIManager
@@ -94,6 +83,16 @@ public class GameManager : MonoBehaviour
     //Gestiona el final del nivel en caso de ganar o perder
     public void FinishLevel(bool playerWon)
     {
+        //Desactiva los enemigos al finalizar el nivel
+        if (enemiesInLevel > 0)
+        {
+            enemies = GameObject.Find("Enemies");
+            enemies.SetActive(false);
+        }
+        //Desactiva la funcionalidad del player para que no se mueva al finalizar el nivel
+        playerC = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerC.enabled = false;
+
         ui_manager.Score(levelScore, totalScore, stage, playerWon);
     }
 
@@ -101,13 +100,13 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         stage++;
-        if (stage >= scenesInOrder.Length) 
+        if (stage >= scenesInOrder.Length)
         {
             GameOver();
             ChangeScene(scenesInOrder[stage]);
             stage = 1;
         }
-        else 
+        else
         {
             levelScore = 0;
             lives = 3;

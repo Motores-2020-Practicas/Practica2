@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114f9d30a63ea0042bf5840d46918a94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentBullet: {fileID: 0}
   bullet: {fileID: 9215863381407954695, guid: 00d860dc597d9fa4e9a80255ac988de4, type: 3}
   coolingDownSecs: 0
   autoShoot: 1
@@ -222,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76136b02cbced9d4783f6e2a994e4420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDamage: 1
+  maxDamage: 2
 --- !u!114 &-8804261760427762123
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,24 +5,21 @@ using UnityEngine;
 public class Shooter : MonoBehaviour
 {
     //Public
-    // Prefab de bala
-    public GameObject bullet;
-    // Cantidad de segundos a esperar para poder disparar de nuevo
-    public float coolingDownSecs;
-    // Indica si se dispara el tanque manual o automaticamente
-    public bool autoShoot;
-    // Cadencia de disparo automatico
-    public float shootCadenceSecs;
+    public GameObject bullet;       // Prefab de bala
+    public float coolingDownSecs;   // Cantidad de segundos a esperar para poder disparar de nuevo
+    public bool autoShoot;          // Indica si se dispara el tanque manual o automaticamente
+    public float shootCadenceSecs;  // Cadencia de disparo automatico
 
     //Private
-    // Contador para poder volver a disparar
-    private float timer;
+    private float timer;            // Contador para poder volver a disparar
+    private Transform parentBullet;  //Referente al padre de la bala enemiga
 
     void Start()
     {
         timer = 0;
         if (autoShoot)
         {
+            parentBullet = GameObject.Find("Enemies").GetComponent<Transform>();
             InvokeRepeating("ShootEnemy", 2.0f, shootCadenceSecs);
         }
     }
@@ -51,7 +48,7 @@ public class Shooter : MonoBehaviour
     // Dispara una bala enemiga
     public void ShootEnemy() {
         GameObject bullet_;
-        bullet_ = Instantiate(bullet, transform.position, Quaternion.identity);
+        bullet_ = Instantiate(bullet, transform.position, Quaternion.identity, parentBullet);
         bullet_.GetComponent<Bullet>().SetDirection(transform.up);
     }
 
