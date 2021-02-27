@@ -696,16 +696,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 975199213}
     m_Modifications:
-    - target: {fileID: -8804261760427762123, guid: 683dd5af63c70db46b7629b8c2ed59d7,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8385994794527588411, guid: 683dd5af63c70db46b7629b8c2ed59d7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 8385994795417368340, guid: 683dd5af63c70db46b7629b8c2ed59d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -765,11 +755,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyTank
-      objectReference: {fileID: 0}
-    - target: {fileID: 8385994795417368363, guid: 683dd5af63c70db46b7629b8c2ed59d7,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 683dd5af63c70db46b7629b8c2ed59d7, type: 3}

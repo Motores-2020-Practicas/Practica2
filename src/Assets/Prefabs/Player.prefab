@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 9215863381407954695, guid: 3b120a52787712140bcb2829fc723fe3, type: 3}
-  coolingDownSecs: 1
   autoShoot: 0
-  shootCadenceSecs: 0
+  cadenceManual: 1
+  cadenceAuto: 0
 --- !u!1 &6306706326303553279
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +232,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 2
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0

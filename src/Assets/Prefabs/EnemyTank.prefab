@@ -76,7 +76,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 2
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -145,11 +145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114f9d30a63ea0042bf5840d46918a94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentBullet: {fileID: 0}
   bullet: {fileID: 9215863381407954695, guid: 00d860dc597d9fa4e9a80255ac988de4, type: 3}
-  coolingDownSecs: 0
   autoShoot: 1
-  shootCadenceSecs: 2
+  cadenceManual: 0
+  cadenceAuto: 2.5
 --- !u!1 &8385994795417368342
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +217,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8385994795417368342}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76136b02cbced9d4783f6e2a994e4420, type: 3}
   m_Name: 
@@ -231,9 +230,8 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8385994795417368342}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b575d015510246b45ba4076387fabeee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: 100

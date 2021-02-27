@@ -2,46 +2,64 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Clase asociada a los GO que pueden sufrir daño
+/// de manera que gestiona la vida que le queda y si
+/// debe ser destruido o no
+/// </summary>
 public class Damageable : MonoBehaviour
 {
     //Publicas
-    public int maxDamage;                   //Maximo de daño que puede recibir el GO
+    //Maximo de daño que puede recibir el GO
+    public int maxDamage;
 
     //Privadas
-    private int currentDamage;              //Vida actual del GO
-    private Vector2 initPos;                //Vector que guarda la posicion inicial del GO
-    private Quaternion initRot;             //Quaternion que guarda la rotación inicial del GO
-    private Transform tr;                   //Transform del GO
-    private static GameManager instance;    //Singleton del GameManager
+    //Vida actual del GO
+    private int currentDamage;
+    //Vector que guarda la posicion inicial del GO
+    private Vector2 initPos;
+    //Quaternion que guarda la rotación inicial del GO
+    private Quaternion initRot;
+    //Transform del GO
+    private Transform tr;
+    //Singleton del GameManager
+    private static GameManager instance;    
 
     private void Start()
     {
         currentDamage = 0;
-        tr = this.gameObject.GetComponent<Transform>();
+        tr = gameObject.GetComponent<Transform>();
         initPos = tr.position;
         initRot = tr.rotation;
         instance = GameManager.getInstance();
     }
 
-    //Aplica el daño correspondiente al GO asociado a este script
+    /// <summary>
+    /// Aplica el daño al GO. 
+    /// Después comprueba si es Enemigo o Player
+    /// para destruir o hacer un reset.
+    /// </summary>
     public void MakeDamage()
     {
         currentDamage++;
         if (currentDamage >= maxDamage)
         {
-            if (this.gameObject.GetComponent<Enemy>())
+            if (gameObject.GetComponent<Enemy>())
             {
-                Destroy(this.gameObject);
-                this.gameObject.GetComponent<Enemy>().DestroyEnemy();
+                Destroy(gameObject);
+                gameObject.GetComponent<Enemy>().DestroyEnemy();
 
             }
-            else if (this.gameObject.GetComponent<PlayerController>()) {
+            else if (gameObject.GetComponent<PlayerController>()) {
                 Reset();
             }
         }
     }
 
-    //Resetea la posicion del jugador en caso de tener vidas todavía
+    /// <summary>
+    /// Si el jugador tiene vidas, reinicia la posición
+    /// si no, entonces destruye al player
+    /// </summary>
     private void Reset()
     {
         if (!instance.PlayerDestroyed())
@@ -52,7 +70,7 @@ public class Damageable : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Script asociado a los muros destruibles y a las balas (del jugador y de los enemigos)
+/// <summary>
+/// Clase que gestiona la destrucción
+/// del GO en caso de haber sido colisionado
+/// </summary>
 public class DestroyOnCollision : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //En cualquier caso destruye el objeto
-        Destroy(this.gameObject);
+        Destroy(gameObject);
 
         //Si el objeto colisionado tiene asociado el componente, entonces aplica el daño
         Damageable dmg = collision.gameObject.GetComponent<Damageable>();

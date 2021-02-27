@@ -2,20 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Clase que gestiona la lógica del HeadQuarter
+/// </summary>
 public class HeadQuarter : MonoBehaviour
 {
     //Publicas
-    public Sprite destroyedEagle;           //Sprite que aparece cuando el águila es destruido
-    
-    //Privadas
-    private SpriteRenderer currentSprite;   //Sprite acutal del HeadQuarter
-    private static GameManager instance;    //Singleton del GameManager
+    //Guarda el sprite del HeadQuarter cuando muere
+    public Sprite destroyedEagle;
 
-    // Start is called before the first frame update
+    //Privadas
+    //Guarda el sprite renderer actual del HeadQuarter
+    private SpriteRenderer currentSprite_R;
+    //Singleton del GameManager
+    private static GameManager instance;
+
     void Start()
     {
         instance = GameManager.getInstance();
-        currentSprite = GetComponentInChildren<SpriteRenderer>();
+        currentSprite_R = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -23,14 +28,18 @@ public class HeadQuarter : MonoBehaviour
         // Si el jugador entra en contacto con el HQ, gana el nivel
         if (collider.GetComponent<PlayerController>())
         {
-            Vector3 basePosition = transform.position;
-            collider.gameObject.transform.position = new Vector3(basePosition.x, basePosition.y, 1);
+            //Vector3 basePosition = transform.position;
+
+            GameObject player = collider.gameObject;
+            Instantiate(player, transform.position, Quaternion.identity, transform);
+            Destroy(collider);
+            //collider.gameObject.transform.position = new Vector3(basePosition.x, basePosition.y, 1);
             instance.FinishLevel(true);
         }
-        // Si una bala enemiga entra en contacto, pierde el nivel
-        if (collider.gameObject.tag == "enemyBullet")
+        // Si una bala entra en contacto, pierde el nivel
+        if (collider.gameObject.GetComponent<Bullet>())
         {
-            currentSprite.sprite = destroyedEagle;
+            currentSprite_R.sprite = destroyedEagle;
             instance.FinishLevel(false);
         }
     }

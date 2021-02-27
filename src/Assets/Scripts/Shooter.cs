@@ -2,17 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Clase que gestiona la lógica de 
+/// los disparos de las entidades
+/// </summary>
 public class Shooter : MonoBehaviour
 {
     //Public
-    public GameObject bullet;       // Prefab de bala
-    public float coolingDownSecs;   // Cantidad de segundos a esperar para poder disparar de nuevo
-    public bool autoShoot;          // Indica si se dispara el tanque manual o automaticamente
-    public float shootCadenceSecs;  // Cadencia de disparo automatico
+    // Prefab de bala
+    public GameObject bullet;
+    // Indica si se dispara el tanque manual o automaticamente
+    public bool autoShoot;
+    // Cadencia de disparo, cuando es manual
+    public float cadenceManual;
+    // Cadencia de disparo, cuando es automatico
+    public float cadenceAuto;
 
     //Private
-    private float timer;            // Contador para poder volver a disparar
-    private Transform parentBullet;  //Referente al padre de la bala enemiga
+    // Contador para poder volver a disparar
+    private float timer;
+    //Referente al padre de la bala enemiga
+    private Transform parentBullet;
 
     void Start()
     {
@@ -20,11 +30,10 @@ public class Shooter : MonoBehaviour
         if (autoShoot)
         {
             parentBullet = GameObject.Find("Enemies").GetComponent<Transform>();
-            InvokeRepeating("ShootEnemy", 2.0f, shootCadenceSecs);
+            InvokeRepeating("ShootEnemy", 2.0f, cadenceAuto);
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (timer > 0)
@@ -34,6 +43,9 @@ public class Shooter : MonoBehaviour
     }
 
     // Dispara una bala
+    /// <summary>
+    /// Dispara una bala del jugador
+    /// </summary>
     public void Shoot ()
     {
         if (timer <= 0)
@@ -41,11 +53,13 @@ public class Shooter : MonoBehaviour
             GameObject bullet_;
             bullet_ = Instantiate(bullet, transform.position, Quaternion.identity);
             bullet_.GetComponent<Bullet>().SetDirection(transform.up);
-            timer = coolingDownSecs;
+            timer = cadenceManual;
         }
     }
 
-    // Dispara una bala enemiga
+    /// <summary>
+    /// Dispara una bala que no es del jugador
+    /// </summary>
     public void ShootEnemy() {
         GameObject bullet_;
         bullet_ = Instantiate(bullet, transform.position, Quaternion.identity, parentBullet);

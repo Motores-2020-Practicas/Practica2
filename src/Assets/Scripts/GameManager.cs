@@ -6,20 +6,34 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     //Publicas
-    public string[] scenesInOrder;          //Array de las escenas ordenadas
+    //Array de las escenas ordenadas
+    public string[] scenesInOrder;
 
     //Privadas
-    private int lives = 3;                  //Numero de vidas del jugador
-    private int levelScore = 0;             //Puntuacion del nivel actual del jugador
-    private int totalScore = 0;             //Puntuación total del jugador
-    private int stage = 1;                  //Determina la escena actual
-    private int enemiesInLevel;             //Enemigos en el nivel actual
-    private static GameManager instance;    //Singleton del GameManager
-    private UIManager ui_manager;           //Script asocaido al  canvas
-    private PlayerController playerC;       //Referencia a PlayerController
-    private GameObject enemies;             //Referencia a los enemigos del nivel
+    //Numero de vidas del jugador
+    private int lives = 3;
+    //Puntuacion del nivel actual del jugador
+    private int levelScore = 0;
+    //Puntuación total del jugador
+    private int totalScore = 0;
+    //Determina la escena actual
+    private int stage = 1;
+    //Enemigos en el nivel actual
+    private int enemiesInLevel;
+    //Singleton del GameManager
+    private static GameManager instance;
+    //Script asocaido al  canvas
+    private UIManager ui_manager;
+    //Referencia a PlayerController
+    private PlayerController playerC;
+    //Referencia a los enemigos del nivel
+    private GameObject enemies;
+    // Cantidad de segundos a esperar para pasar de nivel
+    private float waitSeconds = 5;
 
-    //Para obtener el singleton desde otro script
+    /// <summary>
+    /// DEvuelve el singleton creado de GM
+    /// </summary>
     public static GameManager getInstance()
     {
         return instance;
@@ -39,19 +53,33 @@ public class GameManager : MonoBehaviour
     }
 
     //Referencia el UIManager
+    /// <summary>
+    /// Asigna el nuevo UIManager
+    /// </summary>
     public void SetUIManager(UIManager uim)
     {
         ui_manager = uim;
         ui_manager.Init(lives, enemiesInLevel);
     }
 
-    //Para cambiar a la escena "sceneName"
+    /// <summary>
+    /// Cambia de escenas en funcion de un nombre
+    /// </summary>
+    /// <param name="sceneName">
+    /// Nombe de la escena nueva
+    /// </param>
     public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
 
-    //Devuelve true si el jugador mueres, false en caso contrario
+    /// <summary>
+    /// Gestiona la muerte del jugador
+    /// </summary>
+    /// <returns>
+    /// En caso de que muera y le quede vidan al player devuelve false
+    /// si no, devuelve true
+    /// </returns>
     public bool PlayerDestroyed()
     {
         lives--;
@@ -65,7 +93,9 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    //Suma puntos del enemigo a la puntuación y elimina al enemigo.
+    /// <summary>
+    /// Gestiona la suma de puntos al morir un enemigo
+    /// </summary>
     public void EnemyDestroyed(int destructionPoints)
     {
         levelScore += destructionPoints;
@@ -74,13 +104,18 @@ public class GameManager : MonoBehaviour
         ui_manager.RemoveEnemy();
     }
 
-    //Añade un enemigo al contador de enemigos cuando éste es creado
+    /// <summary>
+    /// Añade un enemigo al contador cuando se crea uno nuevo
+    /// </summary>
     public void AddEnemy()
     {
         enemiesInLevel++;
     }
 
     //Gestiona el final del nivel en caso de ganar o perder
+    /// <summary>
+    /// Gestiona el final del nivel.
+    /// </summary>
     public void FinishLevel(bool playerWon)
     {
         //Desactiva los enemigos al finalizar el nivel
@@ -94,9 +129,13 @@ public class GameManager : MonoBehaviour
         playerC.enabled = false;
 
         ui_manager.Score(levelScore, totalScore, stage, playerWon);
+
+        Invoke("NextLevel", waitSeconds);
     }
 
-    //Gestiona la información necesaria para pasar al siguiente nivel
+    /// <summary>
+    /// Cambia de nivel
+    /// </summary>
     public void NextLevel()
     {
         stage++;
@@ -109,13 +148,15 @@ public class GameManager : MonoBehaviour
         else
         {
             levelScore = 0;
-            lives = 3;
             enemiesInLevel = 0;
             ChangeScene(scenesInOrder[stage]);
         }
     }
 
-    //Resetea el juego en caso de perder
+    /// <summary>
+    /// Reinicia las variables necesarias
+    /// cuando se pierde
+    /// </summary>
     public void GameOver()
     {
         Time.timeScale = 1;
@@ -127,7 +168,9 @@ public class GameManager : MonoBehaviour
         totalScore = 0;
     }
 
-    // Cierra la aplicacion
+    /// <summary>
+    /// Cierra el juego
+    /// </summary>
     public void Exit()
     {
         UnityEditor.EditorApplication.isPlaying = false;

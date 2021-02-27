@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Clase que gestiona la lógica del input
+/// del jugador
+/// </summary>
 public class PlayerController : MonoBehaviour {
     //Publicas
-    public float velocityScale; //Velocidad del player
+    //Velocidad del player
+    public float velocityScale;
 
     //Privadas  
-    private Shooter cannon;     //Referencia al componente shooter para poder disparar
+    //Guarda el componente Shooter para disparar
+    private Shooter cannon;
 
     void Start()
     {
