@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8385994793833902815}
   - component: {fileID: 8385994793833902808}
   m_Layer: 11
-  m_Name: Spritesheet_8
+  m_Name: EnemyTankSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,12 +71,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7021449457718125206, guid: d3573ebc770bc0241b0af13387891f51,
+  m_Sprite: {fileID: -5610061825394522800, guid: d3573ebc770bc0241b0af13387891f51,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
+  m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -93,7 +93,7 @@ Animator:
   m_GameObject: {fileID: 8385994793833902810}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2471106f03153204cae27159150db6a4, type: 2}
+  m_Controller: {fileID: 9100000, guid: d372b18eee0da2247b5391e215a09212, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -127,7 +127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8385994794527588411}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.055, y: 0.4, z: 0}
+  m_LocalPosition: {x: -0.03, y: 0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8385994795417368340}
@@ -145,10 +145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114f9d30a63ea0042bf5840d46918a94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 9215863381407954695, guid: 00d860dc597d9fa4e9a80255ac988de4, type: 3}
+  bullet: {fileID: 9215863381407954695, guid: 3b120a52787712140bcb2829fc723fe3, type: 3}
   autoShoot: 1
-  cadenceManual: 0
-  cadenceAuto: 2.5
+  coolingDownSecs: 0.4
+  shootCadenceSecs: 1
 --- !u!1 &8385994795417368342
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.03, y: -0.04}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -208,7 +208,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
 --- !u!114 &8385994795417368363
 MonoBehaviour:
@@ -217,12 +217,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8385994795417368342}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76136b02cbced9d4783f6e2a994e4420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDamage: 2
+  maxDamage: 1
 --- !u!114 &-8804261760427762123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8385994795417368342}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b575d015510246b45ba4076387fabeee, type: 3}
   m_Name: 

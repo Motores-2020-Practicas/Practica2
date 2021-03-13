@@ -14,23 +14,20 @@ public class Shooter : MonoBehaviour
     // Indica si se dispara el tanque manual o automaticamente
     public bool autoShoot;
     // Cadencia de disparo, cuando es manual
-    public float cadenceManual;
+    public float coolingDownSecs;
     // Cadencia de disparo, cuando es automatico
-    public float cadenceAuto;
+    public float shootCadenceSecs;
 
     //Private
     // Contador para poder volver a disparar
     private float timer;
-    //Referente al padre de la bala enemiga
-    private Transform parentBullet;
 
     void Start()
     {
         timer = 0;
         if (autoShoot)
         {
-            parentBullet = GameObject.Find("Enemies").GetComponent<Transform>();
-            InvokeRepeating("ShootEnemy", 2.0f, cadenceAuto);
+            InvokeRepeating("ShootEnemy", 2.0f, shootCadenceSecs);
         }
     }
 
@@ -53,7 +50,7 @@ public class Shooter : MonoBehaviour
             GameObject bullet_;
             bullet_ = Instantiate(bullet, transform.position, Quaternion.identity);
             bullet_.GetComponent<Bullet>().SetDirection(transform.up);
-            timer = cadenceManual;
+            timer = coolingDownSecs;
         }
     }
 
@@ -62,7 +59,7 @@ public class Shooter : MonoBehaviour
     /// </summary>
     public void ShootEnemy() {
         GameObject bullet_;
-        bullet_ = Instantiate(bullet, transform.position, Quaternion.identity, parentBullet);
+        bullet_ = Instantiate(bullet, transform.position, Quaternion.identity);
         bullet_.GetComponent<Bullet>().SetDirection(transform.up);
     }
 

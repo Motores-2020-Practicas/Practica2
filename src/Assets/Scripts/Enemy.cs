@@ -9,7 +9,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     //Singleton del GameManager
-    private static GameManager instance;    
+    private static GameManager instance;
     //Puntos que otorga el enemigo al morir
     private int points;
 
@@ -17,7 +17,9 @@ public class Enemy : MonoBehaviour
     {
         points = 100;
         instance = GameManager.getInstance();
-        instance.AddEnemy();
+        //En caso de que haya GM
+        if (instance)
+            instance.AddEnemy();
     }
 
     /// <summary>
@@ -25,6 +27,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void DestroyEnemy()
     {
-        instance.EnemyDestroyed(points);
+        if (instance)
+            instance.EnemyDestroyed(points);
     }
 }

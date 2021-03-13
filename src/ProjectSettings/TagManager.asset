@@ -4,10 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - bala
-  - enemyBullet
   - enemy
-  - base
   layers:
   - Default
   - TransparentFX
@@ -21,7 +18,7 @@ TagManager:
   - BaseLayer
   - BulletLayer
   - EnemyLayer
-  - EnemyBulletLayer
+  - 
   - PlayerLayer
   - 
   - 

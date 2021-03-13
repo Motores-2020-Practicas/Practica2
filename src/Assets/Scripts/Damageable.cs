@@ -62,7 +62,8 @@ public class Damageable : MonoBehaviour
     /// </summary>
     private void Reset()
     {
-        if (!instance.PlayerDestroyed())
+        //En caso de que no haya GM se destruye el objeto
+        if (instance && !instance.PlayerDestroyed())
         {
             tr.position = initPos;
             tr.rotation = initRot;

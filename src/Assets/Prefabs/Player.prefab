@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 9215863381407954695, guid: 3b120a52787712140bcb2829fc723fe3, type: 3}
   autoShoot: 0
-  cadenceManual: 1
+  coolingDownSecs: 1
   cadenceAuto: 0
 --- !u!1 &6306706326303553279
 GameObject:
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 6306706326878463464}
   - component: {fileID: 6306706326878463465}
   m_Layer: 13
-  m_Name: Spritesheet_0
+  m_Name: PlayerTankSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,12 +227,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8633881525917383573, guid: d3573ebc770bc0241b0af13387891f51,
+  m_Sprite: {fileID: -9018888328669912864, guid: d3573ebc770bc0241b0af13387891f51,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
+  m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -249,7 +249,7 @@ Animator:
   m_GameObject: {fileID: 6306706326878463471}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c2f8be16e4463504d9759d6026315ba9, type: 2}
+  m_Controller: {fileID: 9100000, guid: e408fe9f2b4ffb34c927e1d7ec632619, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

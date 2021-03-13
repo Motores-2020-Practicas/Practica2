@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour {
             transform.up = Vector2.down;    // (0, -1)
             transform.Translate(transform.up * velocityScale * Time.deltaTime, 0);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButton("Jump"))
         {
             cannon.Shoot();
         }
