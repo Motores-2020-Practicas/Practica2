@@ -21,26 +21,17 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetButton("Horizontal"))
         {
-            transform.up = Vector2.left;    // (-1, 0)
+            transform.up = Vector2.right * Input.GetAxis("Horizontal");
             transform.Translate(transform.up * velocityScale * Time.deltaTime, 0);
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetButton("Vertical"))
         {
-            transform.up = Vector2.right;   // (1, 0)
+            transform.up = Vector2.up * Input.GetAxis("Vertical");
             transform.Translate(transform.up * velocityScale * Time.deltaTime, 0);
         }
-        else if (Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.up = Vector2.up;      // (0, 1)
-            transform.Translate(transform.up * velocityScale * Time.deltaTime, 0);
-        }
-        else if (Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.up = Vector2.down;    // (0, -1)
-            transform.Translate(transform.up * velocityScale * Time.deltaTime, 0);
-        }
+
         if (Input.GetButton("Jump"))
         {
             cannon.Shoot();

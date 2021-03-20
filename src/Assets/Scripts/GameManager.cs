@@ -44,11 +44,11 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
     public bool PlayerDestroyed()
     {
         lives--;
-        ui_manager.UpdateLives(lives);
+        //ui_manager.UpdateLives(lives);
         if (lives <= 0)
         {
             FinishLevel(false);
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
         levelScore += destructionPoints;
         totalScore += destructionPoints;
         enemiesInLevel--;
-        ui_manager.RemoveEnemy();
+        //ui_manager.RemoveEnemy();
     }
 
     /// <summary>
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void FinishLevel(bool playerWon)
     {
-        //Desactiva los enemigos al finalizar el nivel
+        /*//Desactiva los enemigos al finalizar el nivel
         if (enemiesInLevel > 0)
         {
             enemies = GameObject.Find("Enemies");
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
 
         ui_manager.Score(levelScore, totalScore, stage, playerWon);
 
-        Invoke("NextLevel", waitSeconds);
+        Invoke("NextLevel", waitSeconds);*/
     }
 
     /// <summary>
@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void NextLevel()
     {
-        stage++;
+        /*stage++;
         if (stage >= scenesInOrder.Length)
         {
             GameOver();
@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
             levelScore = 0;
             enemiesInLevel = 0;
             ChangeScene(scenesInOrder[stage]);
-        }
+        }*/
     }
 
     /// <summary>

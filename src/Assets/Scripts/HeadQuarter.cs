@@ -23,21 +23,20 @@ public class HeadQuarter : MonoBehaviour
         currentSprite_R = GetComponentInChildren<SpriteRenderer>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        PlayerController playerCont = collision.gameObject.GetComponent<PlayerController>();
         // Si el jugador entra en contacto con el HQ, gana el nivel
-        if (collider.GetComponent<PlayerController>())
+        if (playerCont)
         {
-            //Vector3 basePosition = transform.position;
-
-            GameObject player = collider.gameObject;
-            Instantiate(player, transform.position, Quaternion.identity, transform);
-            Destroy(collider);
-            //collider.gameObject.transform.position = new Vector3(basePosition.x, basePosition.y, 1);
+            GameObject player = collision.gameObject;
+            Destroy(collision.gameObject);
+            Instantiate(player, transform.position, Quaternion.identity);
             instance.FinishLevel(true);
         }
         // Si una bala entra en contacto, pierde el nivel
-        if (collider.gameObject.GetComponent<Bullet>())
+        if (collision.gameObject.GetComponent<Bullet>())
         {
             currentSprite_R.sprite = destroyedEagle;
             instance.FinishLevel(false);

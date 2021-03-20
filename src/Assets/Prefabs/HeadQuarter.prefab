@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7803317925164658236}
   m_Layer: 9
   m_Name: HeadQuarter
-  m_TagString: base
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,7 +43,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ddd2d9b1ea25445ad90f4216262238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyedEagle: {fileID: 2321076446191514138, guid: d3573ebc770bc0241b0af13387891f51,
+  destroyedEagle: {fileID: 2715631617763294037, guid: d3573ebc770bc0241b0af13387891f51,
     type: 3}
 --- !u!1 &7803317925440473326
 GameObject:
@@ -84,8 +84,8 @@ GameObject:
   - component: {fileID: 7803317925440473327}
   - component: {fileID: 7803317925440473325}
   m_Layer: 9
-  m_Name: Spritesheet_65
-  m_TagString: base
+  m_Name: HQSprite
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,12 +143,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5008552361719363343, guid: d3573ebc770bc0241b0af13387891f51,
+  m_Sprite: {fileID: 8416327193618597735, guid: d3573ebc770bc0241b0af13387891f51,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
+  m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0

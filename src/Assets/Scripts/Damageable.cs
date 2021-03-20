@@ -16,6 +16,8 @@ public class Damageable : MonoBehaviour
     //Privadas
     //Vida actual del GO
     private int currentDamage;
+    //Puntos que otorga el enemigo al morir
+    private int points;
     //Vector que guarda la posicion inicial del GO
     private Vector2 initPos;
     //Quaternion que guarda la rotación inicial del GO
@@ -46,11 +48,12 @@ public class Damageable : MonoBehaviour
         {
             if (gameObject.GetComponent<Enemy>())
             {
-                Destroy(gameObject);
-                gameObject.GetComponent<Enemy>().DestroyEnemy();
-
+                points = 100;
+                DestroyEnemy();
             }
-            else if (gameObject.GetComponent<PlayerController>()) {
+            else if (gameObject.GetComponent<PlayerController>())
+            {
+                points = 0;
                 Reset();
             }
         }
@@ -72,6 +75,18 @@ public class Damageable : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    /// <summary>
+    /// Elimina al enemigo y suma los puntos al jugador
+    /// </summary>
+    private void DestroyEnemy()
+    {
+        Destroy(gameObject);
+        if (instance)
+        {
+            instance.EnemyDestroyed(points);
         }
     }
 }

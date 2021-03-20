@@ -10,24 +10,14 @@ public class Enemy : MonoBehaviour
 {
     //Singleton del GameManager
     private static GameManager instance;
-    //Puntos que otorga el enemigo al morir
-    private int points;
 
     void Start()
     {
-        points = 100;
         instance = GameManager.getInstance();
         //En caso de que haya GM
         if (instance)
+        {
             instance.AddEnemy();
-    }
-
-    /// <summary>
-    /// Elimina al enemigo y suma los puntos al jugador
-    /// </summary>
-    public void DestroyEnemy()
-    {
-        if (instance)
-            instance.EnemyDestroyed(points);
+        }
     }
 }
