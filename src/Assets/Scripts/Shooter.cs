@@ -39,7 +39,6 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    // Dispara una bala
     /// <summary>
     /// Dispara una bala del jugador
     /// </summary>
@@ -49,7 +48,8 @@ public class Shooter : MonoBehaviour
         {
             GameObject bullet_;
             bullet_ = Instantiate(bullet, transform.position, Quaternion.identity);
-            bullet_.GetComponent<Bullet>().SetDirection(transform.up);
+            //La bala adquiere la rotación del cañon
+            bullet_.transform.up = transform.up;
             timer = coolingDownSecs;
         }
     }
@@ -60,7 +60,8 @@ public class Shooter : MonoBehaviour
     public void ShootEnemy() {
         GameObject bullet_;
         bullet_ = Instantiate(bullet, transform.position, Quaternion.identity);
-        bullet_.GetComponent<Bullet>().SetDirection(transform.up);
+        //La bala adquiere la rotación del cañon
+        bullet_.transform.up = transform.up;
     }
 
     private void OnDestroy()

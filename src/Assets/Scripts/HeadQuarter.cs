@@ -25,8 +25,14 @@ public class HeadQuarter : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //Se desactiva el componente Collider de HQ
+        //para que no le afecten las balas
+        //en caso de terminar el nivel
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
+        //Referencia al PlayerController
         PlayerController playerCont = collision.gameObject.GetComponent<PlayerController>();
+
         // Si el jugador entra en contacto con el HQ, gana el nivel
         if (playerCont)
         {
@@ -36,7 +42,7 @@ public class HeadQuarter : MonoBehaviour
             instance.FinishLevel(true);
         }
         // Si una bala entra en contacto, pierde el nivel
-        if (collision.gameObject.GetComponent<Bullet>())
+        else if (collision.gameObject.GetComponent<Bullet>())
         {
             currentSprite_R.sprite = destroyedEagle;
             instance.FinishLevel(false);

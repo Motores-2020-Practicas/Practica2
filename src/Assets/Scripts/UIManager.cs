@@ -59,6 +59,7 @@ public class UIManager : MonoBehaviour
 
             icon.rectTransform.SetParent(enemyPanel);
         }
+
         enemiesLeft = numEnemies - 1;
 
         livesText.text = numLives.ToString();

@@ -24,10 +24,6 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     //Script asocaido al  canvas
     private UIManager ui_manager;
-    //Referencia a PlayerController
-    private PlayerController playerC;
-    //Referencia a los enemigos del nivel
-    private GameObject enemies;
     // Cantidad de segundos a esperar para pasar de nivel
     private float waitSeconds = 5;
 
@@ -101,7 +97,10 @@ public class GameManager : MonoBehaviour
         levelScore += destructionPoints;
         totalScore += destructionPoints;
         enemiesInLevel--;
-        //ui_manager.RemoveEnemy();
+        if (ui_manager)
+        {
+            ui_manager.RemoveEnemy();
+        }
     }
 
     /// <summary>
@@ -118,19 +117,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void FinishLevel(bool playerWon)
     {
-        /*//Desactiva los enemigos al finalizar el nivel
-        if (enemiesInLevel > 0)
+        if (ui_manager)
         {
-            enemies = GameObject.Find("Enemies");
-            enemies.SetActive(false);
+            ui_manager.Score(levelScore, totalScore, stage, playerWon);
+            Invoke("NextLevel", waitSeconds);
         }
-        //Desactiva la funcionalidad del player para que no se mueva al finalizar el nivel
-        playerC = GameObject.Find("Player").GetComponent<PlayerController>();
-        playerC.enabled = false;
-
-        ui_manager.Score(levelScore, totalScore, stage, playerWon);
-
-        Invoke("NextLevel", waitSeconds);*/
     }
 
     /// <summary>
@@ -138,7 +129,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void NextLevel()
     {
-        /*stage++;
+        stage++;
         if (stage >= scenesInOrder.Length)
         {
             GameOver();
@@ -150,7 +141,7 @@ public class GameManager : MonoBehaviour
             levelScore = 0;
             enemiesInLevel = 0;
             ChangeScene(scenesInOrder[stage]);
-        }*/
+        }
     }
 
     /// <summary>
