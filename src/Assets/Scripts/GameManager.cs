@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     //Puntuación total del jugador
     private int totalScore = 0;
     //Determina la escena actual
-    private int stage = 1;
+    private int stage;
     //Enemigos en el nivel actual
     private int enemiesInLevel;
     //Singleton del GameManager
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     //Script asocaido al  canvas
     private UIManager ui_manager;
     // Cantidad de segundos a esperar para pasar de nivel
-    private float waitSeconds = 5;
+    const float waitSeconds = 8;
 
     /// <summary>
     /// DEvuelve el singleton creado de GM
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("STAGE: " + stage);
         if (instance == null)
         {
             instance = this;
@@ -46,6 +47,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        stage = 0;
     }
 
     //Referencia el UIManager
@@ -120,8 +126,14 @@ public class GameManager : MonoBehaviour
         if (ui_manager)
         {
             ui_manager.Score(levelScore, totalScore, stage, playerWon);
+            if (!playerWon) stage = 3;
             Invoke("NextLevel", waitSeconds);
         }
+    }
+
+    private void Update()
+    {
+        Debug.Log("STAGE ACTUAL: " + stage);
     }
 
     /// <summary>
@@ -134,7 +146,6 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
             ChangeScene(scenesInOrder[stage]);
-            stage = 1;
         }
         else
         {
@@ -148,11 +159,10 @@ public class GameManager : MonoBehaviour
     /// Reinicia las variables necesarias
     /// cuando se pierde
     /// </summary>
-    public void GameOver()
+    private void GameOver()
     {
         Time.timeScale = 1;
         lives = 3;
-        levelScore = 0;
         enemiesInLevel = 0;
         stage = 0;
         levelScore = 0;
