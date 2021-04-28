@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     //Singleton del GameManager
     private static GameManager instance;
 
-    void Start()
+    void Awake()
     {
         instance = GameManager.getInstance();
         //En caso de que haya GM
