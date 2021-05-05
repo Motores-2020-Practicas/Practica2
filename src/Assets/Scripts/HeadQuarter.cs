@@ -19,7 +19,7 @@ public class HeadQuarter : MonoBehaviour
 
     void Start()
     {
-        instance = GameManager.getInstance();
+        instance = GameManager.GetInstance();
         currentSprite_R = GetComponentInChildren<SpriteRenderer>();
     }
 

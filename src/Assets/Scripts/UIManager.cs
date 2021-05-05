@@ -38,8 +38,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("START UI");
-        instance = GameManager.getInstance();
+        instance = GameManager.GetInstance();
         instance.SetUIManager(this);
     }
 

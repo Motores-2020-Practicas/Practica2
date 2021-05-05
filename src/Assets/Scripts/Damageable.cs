@@ -33,7 +33,7 @@ public class Damageable : MonoBehaviour
         tr = gameObject.GetComponent<Transform>();
         initPos = tr.position;
         initRot = tr.rotation;
-        instance = GameManager.getInstance();
+        instance = GameManager.GetInstance();
     }
 
     /// <summary>

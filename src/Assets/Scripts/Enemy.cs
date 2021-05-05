@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     void Awake()
     {
-        instance = GameManager.getInstance();
+        instance = GameManager.GetInstance();
         //En caso de que haya GM
         if (instance)
         {

@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// DEvuelve el singleton creado de GM
     /// </summary>
-    public static GameManager getInstance()
+    public static GameManager GetInstance()
     {
         return instance;
     }
@@ -40,18 +40,12 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            instance.stage = 0;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(this);
         }
         else
         {
-            if (this != instance)   //Evita copias del GM
-                Destroy(gameObject);
+            Destroy(this);
         }
-    }
-
-    private void Start()
-    {
     }
 
     //Referencia el UIManager
@@ -61,9 +55,7 @@ public class GameManager : MonoBehaviour
     public void SetUIManager(UIManager uim)
     {
         ui_manager = uim;
-        Debug.Log("VIDAS SET_UI: " + instance.lives + " ENEMIES SET_UI: " + instance.enemiesInLevel);
-        ui_manager.Init(instance.lives, instance.enemiesInLevel);
-        Debug.Log("STAGE ACTUAL: " + instance.stage);
+        ui_manager.Init(lives, enemiesInLevel);
     }
 
     /// <summary>
@@ -86,9 +78,9 @@ public class GameManager : MonoBehaviour
     /// </returns>
     public bool PlayerDestroyed()
     {
-        instance.lives--;
+        lives--;
         //ui_manager.UpdateLives(lives);
-        if (instance.lives <= 0)
+        if (lives <= 0)
         {
             FinishLevel(false);
             return true;
@@ -102,9 +94,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void EnemyDestroyed(int destructionPoints)
     {
-        instance.levelScore += destructionPoints;
-        instance.totalScore += destructionPoints;
-        instance.enemiesInLevel--;
+        levelScore += destructionPoints;
+        totalScore += destructionPoints;
+        enemiesInLevel--;
         if (ui_manager)
         {
             ui_manager.RemoveEnemy();
@@ -116,7 +108,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void AddEnemy()
     {
-        instance.enemiesInLevel++;
+        enemiesInLevel++;
     }
 
     //Gestiona el final del nivel en caso de ganar o perder
@@ -127,11 +119,11 @@ public class GameManager : MonoBehaviour
     {
         if (ui_manager)
         {
-            ui_manager.Score(instance.levelScore, instance.totalScore, instance.stage, playerWon);
+            ui_manager.Score(levelScore, totalScore, stage, playerWon);
 
             //Si el jugador pierde o si ya no quedan mas escenas
             //se vuelve al main menu
-            if (!playerWon || instance.stage >= scenesInOrder.Length - 1) 
+            if (!playerWon || stage >= scenesInOrder.Length - 1)
             {
                 Invoke("GameOver", waitSeconds);
             }
@@ -142,23 +134,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //private void Update()
-    //{
-    //    //Debug.Log("STAGE ACTUAL: " + stage);
-    //}
-
     /// <summary>
     /// Cambia de nivel
     /// </summary>
     public void NextLevel()
     {
-        instance.stage++;
-        Debug.Log("LEVEL++ = " + instance.stage);
-        Debug.Log("NUM ENEMIES ANTES: " + instance.enemiesInLevel);
-        instance.levelScore = 0;
-        instance.enemiesInLevel = 0;
-        Debug.Log("NUM ENEMIES DESPUES: " + instance.enemiesInLevel);
-        ChangeScene(scenesInOrder[instance.stage]);
+        stage++;
+        levelScore = 0;
+        enemiesInLevel = 0;
+        ChangeScene(scenesInOrder[stage]);
     }
 
     /// <summary>
@@ -168,14 +152,13 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         Time.timeScale = 1;
-        instance.lives = 3;
-        instance.enemiesInLevel = 0;
-        instance.stage = 0;
-        instance.levelScore = 0;
-        instance.totalScore = 0;
+        lives = 3;
+        enemiesInLevel = 0;
+        stage = 0;
+        levelScore = 0;
+        totalScore = 0;
 
-        Debug.Log("Vuelta al menu: " + instance.stage);
-        ChangeScene(scenesInOrder[instance.stage]);
+        ChangeScene(scenesInOrder[stage]);
     }
 
     /// <summary>
