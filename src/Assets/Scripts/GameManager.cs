@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     //Puntuación total del jugador
     private int totalScore = 0;
     //Determina la escena actual
-    private int stage;
+    private int stage = 1;
     //Enemigos en el nivel actual
     private int enemiesInLevel = 0;
     //Singleton del GameManager
@@ -79,7 +79,9 @@ public class GameManager : MonoBehaviour
     public bool PlayerDestroyed()
     {
         lives--;
-        //ui_manager.UpdateLives(lives);
+        //Comprobamos que exista el UIManager
+        if(ui_manager) ui_manager.UpdateLives(lives);
+
         if (lives <= 0)
         {
             FinishLevel(false);
@@ -111,7 +113,6 @@ public class GameManager : MonoBehaviour
         enemiesInLevel++;
     }
 
-    //Gestiona el final del nivel en caso de ganar o perder
     /// <summary>
     /// Gestiona el final del nivel.
     /// </summary>
@@ -119,11 +120,18 @@ public class GameManager : MonoBehaviour
     {
         if (ui_manager)
         {
-            ui_manager.Score(levelScore, totalScore, stage, playerWon);
+            //Playing indica si seguir jugando o no
+            bool playing = playerWon;
 
-            //Si el jugador pierde o si ya no quedan mas escenas
-            //se vuelve al main menu
-            if (!playerWon || stage >= scenesInOrder.Length - 1)
+            //Aunque se gane, en caso de estar en la última escena
+            //se mostrará el panel de GameOver y se llamará al método
+            //GameOver de esta clase para reiniciar los niveles
+            if (stage >= scenesInOrder.Length - 1)
+                playing = false;
+
+            ui_manager.Score(levelScore, totalScore, stage, playing);
+
+            if (!playing)
             {
                 Invoke("GameOver", waitSeconds);
             }
@@ -151,14 +159,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void GameOver()
     {
-        Time.timeScale = 1;
         lives = 3;
         enemiesInLevel = 0;
-        stage = 0;
+        stage = 1;
         levelScore = 0;
         totalScore = 0;
 
-        ChangeScene(scenesInOrder[stage]);
+        ChangeScene(scenesInOrder[0]);
     }
 
     /// <summary>
